@@ -6,25 +6,41 @@
 3）断电先关示教器再关右下角
 
 ---2、ping网络
+1）连接上网线
+2）查看当前IP设置：ip addr show
+注：eth0是自己新建的虚拟网口，lo、wlp2s0、Mithomo是本来就有的，enx00e04c581870是网线的ip
+3）要么就是把虚拟网口与实际网线的结合（到时候问deepseek），要么就是禁用虚拟网口，然后启动实际网线的网口，然后分配对应网段的Ip地址，然后再ping测试（下面步骤是后者）
+4）禁用虚拟网口：sudo ip link set eth0 down  （同一个网段的两个网口会干扰，会干扰实际网口）
+5）启动实际网线的网口：sudo ip link set enx00e04c581870 up
+6）分配对应网段的Ip地址：sudo ip addr add 192.168.131.30/24 dev enx00e04c581870
+7）ping测试：ping -c 10 192.168.131.10
 
 ---3、Robotiq（夹爪）配置：
-1）安装依赖项：
+1）robotiq —— UR机器人与Robotiq夹爪控制程序，需复制到自己工作空间catkin_ws中的源文件src目录下
+注：(robotiq_3f_gripper_control/nodes下为控制程序，其中Control_Robotiq.py与Control_UR5.py是主程序，编译会报错显示配置文件中的一些节点文件不存在，因为这几个节点文件是迭代版本没有用处了，直接在配置文件中删除这些节点文件即可编译)
+2）安装依赖项：
 rosdep install robotiq_modbus_tcp
 sudo apt-get install ros-kinetic-soem
-2）缺啥问deepseek
+3）缺啥问deepseek
 
 ---4、下载Arduino程序并校准
+lehand_runROS_topic_3 —— 数据手套程序 ArduinoIDE直接编译下载到手套即可
+开发板和接口好像是Arduino Nano
 
 ---5、在控制夹爪和机械臂之前，需要给串口权限并且打开串口，并且运行ROS_serial通信协议
-1）sudo chmod 777 /dev/ttyUSB0
+1）sudo chmod 777 /dev/ttyUSB0  (要是没找到，就直接拔插USB)
 2）roscore
 3）新开一个终端：rosrun rosserial_python serial_node.py /dev/ttyUSB0
 (小细节：手套在启动ros_serial串口后需要重新校准！相当于虚拟重新插入USB)
 
----6、终端逐个窗口执行以下指令
-1）rosrun robotiq_3f_gripper_control Robotiq3FGripperTcpNode.py 192.168.131.11(激活夹爪) 
-2）rosrun robotiq_3f_gripper_control Control_Robotiq.py(Robotiq控制) 
-3）rosrun robotiq_3f_gripper_control Control_UR5.py(UR5控制节点)
+---6、在这个路径下~/catkin_ws/src/robotiq，打开终端逐个窗口执行以下指令
+1)查看robotiq目录结构：ls -la  （能看得到包在不在，也可以直接看）
+2）激活环境：source ~/catkin_ws/devel/setup.bash （这样就能找到包了，三条指令都与包"robotiq_3f_gripper_control"相关）
+3）看看现在能不能找到包：rospack find robotiq_3f_gripper_control （找得到的话会返回路径）
+4）打开终端，逐个窗口运行下列指令（每个指令前都要运行2步）
+5）rosrun robotiq_3f_gripper_control Robotiq3FGripperTcpNode.py 192.168.131.11(激活夹爪) 
+6）rosrun robotiq_3f_gripper_control Control_Robotiq.py(Robotiq控制) 
+7）rosrun robotiq_3f_gripper_control Control_UR5.py(UR5控制节点)
 
 
 注：想要控制UR5，只需最后一条指令即可。

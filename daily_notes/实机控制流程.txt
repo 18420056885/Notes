@@ -1,0 +1,31 @@
+---1、UR机器人使用：
+(以下视角均为面朝机器人)
+
+1）右下角上电，示教器开关直接开启关闭
+2）左下角摁下插电可进行充电，绿色闪烁代表充电中(两周一次)
+3）断电先关示教器再关右下角
+
+---2、ping网络
+
+---3、Robotiq（夹爪）配置：
+1）安装依赖项：
+rosdep install robotiq_modbus_tcp
+sudo apt-get install ros-kinetic-soem
+2）缺啥问deepseek
+
+---4、下载Arduino程序并校准
+
+---5、在控制夹爪和机械臂之前，需要给串口权限并且打开串口，并且运行ROS_serial通信协议
+1）sudo chmod 777 /dev/ttyUSB0
+2）roscore
+3）新开一个终端：rosrun rosserial_python serial_node.py /dev/ttyUSB0
+(小细节：手套在启动ros_serial串口后需要重新校准！相当于虚拟重新插入USB)
+
+---6、终端逐个窗口执行以下指令
+1）rosrun robotiq_3f_gripper_control Robotiq3FGripperTcpNode.py 192.168.131.11(激活夹爪) 
+2）rosrun robotiq_3f_gripper_control Control_Robotiq.py(Robotiq控制) 
+3）rosrun robotiq_3f_gripper_control Control_UR5.py(UR5控制节点)
+
+
+注：想要控制UR5，只需最后一条指令即可。
+    要控制夹爪的话，第一、第二就要用，第二可选夹爪形态

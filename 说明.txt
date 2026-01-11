@@ -1,0 +1,2 @@
+说明：
+这个是用obsidian软件里的一个插件进行自动向github仓库发送文件，因此，.obsidian是属于obsidian_md文件夹里的，但是不好修改，特此说明，这个文件夹是obsidian软件的环境配置文件夹

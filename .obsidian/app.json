@@ -1,5 +1,6 @@
 {
   "newFileLocation": "folder",
   "newFileFolderPath": "obsidian_md",
-  "attachmentFolderPath": "obsidian_md"
+  "attachmentFolderPath": "obsidian_md",
+  "alwaysUpdateLinks": true
 }

@@ -15,6 +15,8 @@
 6）分配对应网段的Ip地址：sudo ip addr add 192.168.131.30/24 dev enx00e04c581870
 7）ping测试：ping -c 10 192.168.131.10
 
+注：如果一开始显示目标主机不可送达，那就在示教器中把ip重新设置一下
+
 ---3、Robotiq（夹爪）配置：
 1）robotiq —— UR机器人与Robotiq夹爪控制程序，需复制到自己工作空间catkin_ws中的源文件src目录下
 注：(robotiq_3f_gripper_control/nodes下为控制程序，其中Control_Robotiq.py与Control_UR5.py是主程序，编译会报错显示配置文件中的一些节点文件不存在，因为这几个节点文件是迭代版本没有用处了，直接在配置文件中删除这些节点文件即可编译)

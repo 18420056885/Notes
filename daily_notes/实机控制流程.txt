@@ -33,7 +33,7 @@ lehand_runROS_topic_3 —— 数据手套程序 ArduinoIDE直接编译下载到�
 1）sudo chmod 777 /dev/ttyUSB0  (要是没找到，就直接拔插USB)
 2）roscore
 3）新开一个终端：rosrun rosserial_python serial_node.py /dev/ttyUSB0
-(小细节：手套在启动ros_serial串口后需要重新校准！相当于虚拟重新插入USB)
+(小细节：手套在启动ros_serial串口后需要重新校准！！！！)
 
 ---6、在这个路径下~/catkin_ws/src/robotiq，打开终端逐个窗口执行以下指令
 1) 进入路径：cd ~/catkin_ws/src/robotiq
